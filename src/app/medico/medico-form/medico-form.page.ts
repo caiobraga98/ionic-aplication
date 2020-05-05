@@ -1,25 +1,23 @@
-import { ToastController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
-import { ContactService } from './../shared/contact.service';
-import { Contact } from './../shared/contact';
 import { Component, OnInit } from '@angular/core';
+import { MedicoService } from '../shared/medico.service';
+import { ActivatedRoute } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import { Medico } from '../shared/medico';
 
 @Component({
-  selector: 'app-contact-form',
-  templateUrl: './contact-form.page.html',
-  styleUrls: ['./contact-form.page.scss'],
+  selector: 'app-medico-form',
+  templateUrl: './medico-form.page.html',
+  styleUrls: ['./medico-form.page.scss'],
 })
-export class ContactFormPage implements OnInit {
-  title: string = 'cobertura';
-  contact: Contact;
-
-  constructor(
-    private contactService: ContactService,
+export class MedicoFormPage implements OnInit {
+  title: string = 'novo medico';
+  medico: Medico;
+  constructor( private medicoservice: MedicoService,
     private route: ActivatedRoute, 
     private toastCtrl: ToastController) { }
 
   ngOnInit() {
-    this.contact = new Contact();
+    this.medico = new Medico();
 
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
@@ -27,19 +25,19 @@ export class ContactFormPage implements OnInit {
       this.loadContact(parseInt(idParam));
     }
   }
-  
+
   async loadContact(id: number) {
-    this.contact = await this.contactService.getById(id);
+    this.medico = await this.medicoservice.getById(id);
   }
 
   async onSubmit() {
     try {
-      const result = await this.contactService.save(this.contact);
-      this.contact.id = result.insertId;
+      const result = await this.medicoservice.save(this.medico);
+      this.medico.id = result.insertId;
 
       const toast = await this.toastCtrl.create({
         header: 'Sucesso',
-        message: 'Contato salvo com sucesso.',
+        message: 'medico salvo com sucesso.',
         color: 'success',
         position: 'bottom',
         duration: 3000
@@ -49,7 +47,7 @@ export class ContactFormPage implements OnInit {
     } catch (error) {
       const toast = await this.toastCtrl.create({
         header: 'Erro',
-        message: 'Ocorreu um erro ao tentar salvar o Contato.',
+        message: 'Ocorreu um erro ao tentar salvar o medico.',
         color: 'danger',
         position: 'bottom',
         duration: 3000
@@ -58,4 +56,5 @@ export class ContactFormPage implements OnInit {
       toast.present();
     }
   }
+
 }

@@ -11,12 +11,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  navigate : any;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private db: DatabaseService
   ) {
+    this.sideMenu();
     this.initializeApp();
   }
 
@@ -26,5 +28,37 @@ export class AppComponent {
       this.splashScreen.hide();
       this.db.openDatabase();
     });
+  }
+
+  sideMenu()
+  {
+    this.navigate =
+    [
+      {
+        title : "Home",
+        url   : "",
+        icon  : "home"
+      },
+      {
+        title : "cobertura",
+        url   : "/contacts",
+        icon  : "contacts"
+      },
+      {
+        title : "especialidade",
+        url   : "/especialidade",
+        icon  : "contacts"
+      },
+      {
+        title : "consulta",
+        url   : "/consulta",
+        icon  : "contacts"
+      },
+      {
+        title : "medico",
+        url   : "/medico",
+        icon  : "contacts"
+      }
+    ]
   }
 }
