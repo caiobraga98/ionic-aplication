@@ -35,7 +35,7 @@ export class AppComponent {
     this.navigate =
     [
       {
-        title : "Home",
+        title : "home",
         url   : "",
         icon  : "home"
       },
