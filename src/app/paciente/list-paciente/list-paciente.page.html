@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>paciente</ion-title>    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Pesquisar" 
+    (ionClear)="doSerchClear()"
+    (ionChange)="doSerchBarChange($event)">
+  </ion-searchbar>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let paciente of pacientes">
+      <ion-item>
+        <ion-label>{{paciente.nome}}</ion-label>
+      </ion-item>
+
+      <ion-item-options side="start">        
+        <ion-item-option [routerLink]="['edit', paciente.id]">
+          <ion-icon slot="icon-only" name="create" color="secondary"></ion-icon>
+        </ion-item-option>        
+        <ion-item-option (click)="delete(paciente)">
+          <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary" [routerLink]="['new']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

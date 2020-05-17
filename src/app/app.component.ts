@@ -58,6 +58,11 @@ export class AppComponent {
         title : "medico",
         url   : "/medico",
         icon  : "contacts"
+      },
+      {
+        title : "paciente",
+        url   : "/paciente",
+        icon  : "contacts"
       }
     ]
   }

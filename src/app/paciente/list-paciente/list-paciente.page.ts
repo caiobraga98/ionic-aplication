@@ -1,47 +1,45 @@
-import { ToastController, AlertController } from '@ionic/angular';
-import { ContactService } from './../shared/contact.service';
-import { Contact } from './../shared/contact';
 import { Component, OnInit } from '@angular/core';
+import { Paciente } from '../shared/paciente';
+import { PacienteService } from '../shared/paciente.service';
+import { ToastController, AlertController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-contact-list',
-  templateUrl: './contact-list.page.html',
-  styleUrls: ['./contact-list.page.scss'],
+  selector: 'app-list-paciente',
+  templateUrl: './list-paciente.page.html',
+  styleUrls: ['./list-paciente.page.scss'],
 })
-export class ContactListPage implements OnInit {
-  contacts: Contact[] = [];
+export class ListPacientePage  {
+
+  pacientes: Paciente[] = [];
 
   constructor(
-    private contactService: ContactService, 
+    private pacienteService: PacienteService, 
     private toastCtrl: ToastController, 
     private alertCtrl: AlertController) { }
 
-  ngOnInit() {
-  }
-
   ionViewWillEnter() {
-    this.loadContacts();
+    this.loadPacients();
   }
 
-  async loadContacts() {
-    this.contacts = await this.contactService.getAll();
+  async loadPacients() {
+    this.pacientes = await this.pacienteService.getAll();
   }
 
   doSerchClear() {
-    this.loadContacts();
+    this.loadPacients();
   }
 
   async doSerchBarChange($event: any) {
     const value = $event.target.value;
     if (value && value.length >= 2) {
-      this.contacts = await this.contactService.filter(value);
+      this.pacientes = await this.pacienteService.filter(value);
     }
   }
 
-  async delete(contact: Contact) {
+  async delete(paciente: Paciente) {
     const alert = await this.alertCtrl.create({
       header: 'Deletar?',
-      message: `Deseja excluir a cobertura: ${contact.name}?`,
+      message: `Deseja excluir o paciente: ${paciente.nome}?`,
       buttons: [
         {
           text: 'Cancelar',
@@ -50,7 +48,7 @@ export class ContactListPage implements OnInit {
         {
           text: 'Excluir',
           handler: () => {
-            this.executeDelete(contact);
+            this.executeDelete(paciente);
           }
         }
       ]
@@ -59,18 +57,18 @@ export class ContactListPage implements OnInit {
     alert.present();
   }
 
-  async executeDelete(contact: Contact) {
+  async executeDelete(paciente: Paciente) {
     try {
       // Removendo do banco de dados
-      await this.contactService.delete(contact.id);
+      await this.pacienteService.delete(paciente.id);
 
       // Removendo do array
-      const index = this.contacts.indexOf(contact);
-      this.contacts.splice(index, 1);
+      const index = this.pacientes.indexOf(paciente);
+      this.pacientes.splice(index, 1);
 
       const toast = await this.toastCtrl.create({
         header: 'Sucesso',
-        message: 'cobertura excluído com sucesso.',
+        message: 'paciente excluído com sucesso.',
         color: 'success',
         position: 'bottom',
         duration: 3000
@@ -80,7 +78,7 @@ export class ContactListPage implements OnInit {
     } catch (error) {
       const toast = await this.toastCtrl.create({
         header: 'Erro',
-        message: 'Ocorreu um erro ao tentar excluir o cobertura.',
+        message: 'Ocorreu um erro ao tentar excluir o Paciente.',
         color: 'danger',
         position: 'bottom',
         duration: 3000
@@ -89,4 +87,5 @@ export class ContactListPage implements OnInit {
       toast.present();
     }
   }
+
 }

@@ -15,7 +15,11 @@ const routes: Routes = [
   { path: 'consulta/new', loadChildren: './consulta/consulta-form/consulta-form.module#ConsultaFormPageModule' },
   { path: 'consulta/edit/:id', loadChildren: './consulta/consulta-form/consulta-form.module#ConsultaFormPageModule' },
   { path: 'consulta', loadChildren: './consulta/consulta-list/consulta-list.module#ConsultaListPageModule' },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'paciente/new', loadChildren: './paciente/form-paciente/form-paciente.module#FormPacientePageModule' },
+  { path: 'paciente/edit/:id', loadChildren: './paciente/form-paciente/form-paciente.module#FormPacientePageModule' },
+  { path: 'paciente', loadChildren: './paciente/list-paciente/list-paciente.module#ListPacientePageModule' }
+
 
 
 

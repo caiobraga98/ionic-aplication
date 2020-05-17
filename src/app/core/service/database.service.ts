@@ -32,7 +32,7 @@ export class DatabaseService {
     sqls.push('CREATE TABLE IF NOT EXISTS especialidades (id integer primary key AUTOINCREMENT, especialidade varchar(100));');
     sqls.push('CREATE TABLE IF NOT EXISTS medicos (id integer primary key AUTOINCREMENT, nomemedico varchar(100),crm varchar(100));');
     sqls.push('CREATE TABLE IF NOT EXISTS consultas (id integer primary key AUTOINCREMENT, dtconsulta varchar(100));');
-
+    sqls.push('CREATE TABLE IF NOT EXISTS paciente (id integer primary key AUTOINCREMENT,nomepaciente varchar(100),idade integer,rg integer,cpf integer)')
     return sqls.join('\n');
   }
 
